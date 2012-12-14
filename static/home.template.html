@@ -1,0 +1,113 @@
+<html>
+<head>
+	<title>Simple smtp server</title>
+	<script type="text/javascript" src="static/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="static/style.css"></script>
+</head>
+<body>
+<div id="container">
+	<h2>Simple SMTP Server/Listener<span>{{host}}</span></h2>
+	<p>When a new message arrives at the server, page will refresh automatically. This tool is ideal to test emails in your dev app.<br />Click on an item to view its contents.</p>
+	<div id="msgContainer">
+	{% for each in messages %}
+		<div class="msgRow {% if each.read %}msgRead{% endif %}" msgId='{{ each.id }}'>
+			<span class='fromField'>{{ each.from }}</span>
+			<span class='toField'>{{ each.to }}</span>
+			<span class='msgField'>{{ each.title }}</span>
+			<span class='timeField'>{{ each.time }}</span>
+		</div>
+	{% empty %}
+		<div class="msgRow msgRead txtCenter">
+			No messages
+		</div>
+	{% endfor %}
+
+	<div class='msgBox'>Some message goes here</div>
+	</div>
+
+	<div id="footer">
+		<p>by kalyan</p>
+	</div>
+
+</div>
+
+	<script type="text/javascript">
+	var refreshRate = 5;
+	var messageCache = {};
+	var refreshInbox = function() {
+		setTimeout(function(){
+			$.get('/api/has_new',function(data){
+				if( data == 'true' )
+					window.location = window.location;
+				else
+					refreshInbox();
+			});
+		},refreshRate*1000);
+	}
+
+	var showMessage = function(id) {
+		if(!messageCache[''+id])
+			return;
+
+		msgBox = $(".msgBox");
+		msgRow = $(".msgRow[msgId="+id+"]");
+
+		if( msgRow.hasClass('msgOpen') ) {
+			msgRow.removeClass('msgOpen');
+			msgBox.hide();
+			return;
+		}
+		else {
+			$('.msgRow').removeClass('msgOpen');
+			msgRow.addClass('msgOpen');
+		}
+			
+
+		msgRow.addClass('msgRead')
+		msgBox.show();
+
+		msgRow.after(msgBox);
+
+		message = messageCache[ ''+id ];
+		console.log(message);
+		msgBox.html( '<pre>' + message.data + '</pre>');
+	}
+
+	$(document).ready(function(){
+		$('.msgRow')
+			.css('cursor','hand')
+			.click(function(){
+				id = $(this).attr('msgId');
+				console.log(id)
+				if(id=='') return;
+				if(!messageCache[''+id]) {
+					$.get("/api/read/"+id,function(msg){
+						if( msg == false || msg == 'false' )
+							return;
+
+						if( typeof msg == 'string' )
+							msg =  JSON.parse(msg)
+
+						messageCache[''+id] = msg;
+						showMessage(id);
+					});
+				}
+				else
+					showMessage(id);
+			});
+
+		$('.msgBox').hide();
+
+		$('.timeField').each(function(e){
+			var val = $(this).text();
+			var d = new Date(0);
+			d.setUTCSeconds(parseInt(val));
+			$(this).html(d.toDateString());
+		})
+
+	});
+
+	</script>
+
+</body>
+</html>

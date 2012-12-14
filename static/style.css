@@ -1,0 +1,99 @@
+
+	body {
+		font: 14px "Helvetica Neue", "Arial";
+		margin: auto;
+		text-align: center;
+		padding: 20px;
+	}
+
+	#msgContainer {
+		width:1280px;
+		border: 4px solid #6799d7;
+		border-radius: 8px;
+	}
+
+	.msgRow{
+		display: block;
+		/*line-height: 25px;*/
+		border-bottom: 1px solid #ccc;
+		font-weight: bold;
+		padding: 5px;
+	}
+
+	.msgBox {
+		padding: 10px;
+		line-height: 20px;
+		margin: 8px;
+		border-radius: 5px;
+		border:1px solid #ccc;
+
+		border-top:0;
+		margin-top: 0;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+		display: block;
+	}
+
+	.msgBox pre {
+		margin: 0;
+		padding: 0;
+		font-size: 12px;
+	}
+
+	.msgRead {
+		font-weight: normal;
+		background: #efefef;
+	}
+
+	.fromField {
+		width:150px;
+		display: inline-block;
+		overflow: hidden;;
+	}
+
+	.toField {
+		width:250px;
+		display: inline-block;
+		overflow: hidden;;		
+	}
+
+	.msgField {
+		width:700px;
+		display: inline-block;
+		overflow: hidden;
+	}
+
+	.timeField {
+		width: 150px;
+		text-align: right;;
+		display: inline-block;;
+		float: right;
+		border:0px solid red;
+		border-bottom: 0;
+	}
+
+	h2 { font-weight: normal;}
+	h2 span {
+		margin-left: 10px;
+		background: #e0ecff;
+		padding: 3px 5px 4px 4px;
+		font-size: 15px;
+	}
+
+	#container {
+		text-align: left;;
+		margin: auto;
+		width: 1282px;
+	}
+
+	#container p {
+		line-height: 20px;
+	}
+
+	#footer {
+		font-size: 10px;
+		font-family: verdana;
+		color: #666;
+		margin-top: 15px;
+	}
+	#footer p { margin: 0;}
