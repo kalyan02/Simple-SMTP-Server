@@ -1,11 +1,12 @@
 ## Simple SMTP Sink Server
 
-This is an extremely Simple SMTP sink server written in Python. Message are neither validated, proxied nor delivered to any recepient. 
-
-The server comes with a web based interface for viewing all messages passing through this mail server.
+An simple python based SMTP server, with a neat web interface for viewing all the messages that hit this server. It basically acts as a sink for all emails and so message are neither validated, proxied nor delivered to any recepient. 
 
 Useful for testing out smtp/emails of your project.
 
+## Web Interface
+
+![Screenshot](https://raw.github.com/kalyan02/Simple-SMTP-Server/master/screenshot.png)
 
 ## Instructions
 
